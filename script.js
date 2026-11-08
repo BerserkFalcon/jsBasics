@@ -10,6 +10,7 @@ function randNewBook(){let book = Math.floor(Math.random()*NewTestament.length);
 randOldBook();
 randNewBook();
 
+//whole thing is overtuned, maybe dif functions for each tier, then combine via a seperate function
 function rollPoke(){
         //total pokemon is 1025, split amonng 5 even tiers would be 205 each
         //this seem overtuned, maybe just take the rarityOnePoke and just add the min/max depending on tier
@@ -39,6 +40,8 @@ function rollPoke(){
         var raritThreeyOdds = 10;
         var rarityFourOdds = 5;
         var rarityFiveOdds = 1;
+
+        
 
             if(rarityCheck1<=rarityOneOdds && rarityCheck2<=rarityOneOdds){
                 console.log("congratulations you won a "+ rarityOnePoke)
