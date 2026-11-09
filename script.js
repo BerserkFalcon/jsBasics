@@ -61,7 +61,6 @@ function rollPoke(){
             baseTier() + tierSize *3,
             baseTier() + tierSize *4,
         ];
-
         //set value to beat for success, then generate 2 random nums, set bool answer to indexes based on success
         //if BOTH true, that tier succeeds and is added to received array
         function rarityRoll(){
