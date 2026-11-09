@@ -1,4 +1,3 @@
-console.log("Hello from script.js");
 //make these dictionaries of book to chapter pairs? Chapters will also have verses, can that be triple mapped?
 const OldTestament = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi"];
 const NewTestament = ["Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
@@ -11,7 +10,7 @@ function randNewBook(){let book = Math.floor(Math.random()*NewTestament.length);
 const generateRolls =document.getElementById("buttonGenerates"); //generates 1 free roll, no timegate
 const buttonRolls = document.getElementById("buttonRolls"); //rolls
 const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
-
+//init base values
 var availableRolls = 0;
 var hourOfLastRoll;
 const time = new Date();
@@ -52,11 +51,9 @@ function rollPoke(){
         //create array of no pokemon but not undefined, then array of the odds
         var receivedPokes = [0,0,0,0,0];
         var rarityTiers = [91,20,10,5,1];
-
-        //set offset for each tier, 1025 total pokemon, so each seperated by 205, then populate array with potential winners
-        //need to understand how arrow function works better, copy pasted format
+        //set offset for each tier, 1025 total pokemon, groups of 205, then populate array with potential winners
         const tierSize = 205;
-        const baseTier = () => Math.floor(Math.random()*tierSize) + 1;
+        const baseTier = () => Math.floor(Math.random()*tierSize)+1; //function baseTier(){return Math.floor(Math.random()*tierSize)+1;} 
         var rarityPoke = [
             baseTier(),
             baseTier() + tierSize,
@@ -64,7 +61,6 @@ function rollPoke(){
             baseTier() + tierSize *3,
             baseTier() + tierSize *4,
         ];
-
 
         //set value to beat for success, then generate 2 random nums, set bool answer to indexes based on success
         //if BOTH true, that tier succeeds and is added to received array
@@ -91,11 +87,11 @@ function rollPoke(){
             }else{console.log("Sorry try again.")};
         };
     };
-//switch to a decrement scheme? by setting i to num1, i>0 and i-- instead?
+
  function roll(num1){for(let i=0;i<num1;i++){
     var numberOfRolls = num1;
     if(numberOfRolls>0){
         rollPoke();
         numberOfRolls--;
-    }else{console.log("no available rolls")}; //will this always print at the end?
+    }else{console.log("no available rolls")};
 }};
