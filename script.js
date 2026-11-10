@@ -6,29 +6,67 @@ const NewTestament = ["Matthew","Mark","Luke","John","Acts","Romans","1 Corinthi
 28, 16, 24, 21, 28, 16, 16, 13, 6, 6, 4, 4, 5, 3, 6, 4, 3, 1, 13, 5, 5, 3, 5, 1, 1, 1, 22
 function randOldBook(){let book = Math.floor(Math.random()*OldTestament.length);console.log(OldTestament[book]);};
 function randNewBook(){let book = Math.floor(Math.random()*NewTestament.length);console.log(NewTestament[book]);};
-//buttons
+
+//html buttons
 const generateRolls =document.getElementById("buttonGenerates"); //generates 1 free roll, no timegate
 const buttonRolls = document.getElementById("buttonRolls"); //rolls
 const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
-//init base values
+const resetSession = document.getElementById("resetSessionStorage");
+
+//init base/empty values
 var availableRolls = 0;
 var hourOfLastRoll;
 const time = new Date();
 var hourCheck = time.getHours();
+var pokeCollection = [];
 
-function updateRolls(){
-    availableRolls++;
+/*
+below line WIP, push any pokes received from rolling
+into the array pokecollection
+intent is to save the "poke"(number generated)
+as the key, then it's value to 1 or name?
+*/
+//pokeCollection.push(pokefromroll)
+
+function updateRolls(rollVal){
+    if(rollVal==0){
+        rollsMessage();
+    }
+    else if(rollVal==1){
+        availableRolls++;
+        rollsMessage();
+    }
+    else if(rollVal<1000000){
+        availableRolls+=rollVal;
+        console.log(`${rollVal} rolls added.`)
+        rollsMessage(); 
+    }else {
+        console.log("Failed to add rolls.")
+    }
 };
+
+var formRolls = document.getElementById("fieldGenerates");
+formRolls.addEventListener('keydown',(event)=>{
+    if (event.key==="Enter"){
+        event.preventDefault();
+        let formNum = Number(formRolls.value);
+        updateRolls(formNum);
+    };
+});
+
 
 function rollsMessage(){
     if (availableRolls == 1){
         console.log("1 roll available.")
-    }else{console.log(`${availableRolls} rolls available.`)}
+    }
+    else if(availableRolls == 0){
+        console.log("No rolls available.");
+    }
+    else{console.log(`${availableRolls} rolls available.`)}
 }
 
 generateRolls.addEventListener('click',()=>{
-    updateRolls();
-    rollsMessage();
+    updateRolls(1);
 });
 
 buttonRolls.addEventListener('click',()=>{
@@ -47,6 +85,9 @@ hourlyRolls.addEventListener('click',()=>{
     }else{console.log("Hourly roll used.")};
 });
 
+resetSession.addEventListener('click', ()=>{
+    sessionStorage.clear();
+});
 function rollPoke(){
         //create array of no pokemon but not undefined, then array of the odds
         var receivedPokes = [0,0,0,0,0];
