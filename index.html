@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="controlParams">
   <form>
     <button type="button" id="buttonGenerates">Generate rolls</button>
     <br>
@@ -16,8 +19,25 @@
     <button type="button" id="resetSessionStorage">Reset Session</button>
     <br>
     <label for="fieldGenerates">Rolls to generate:</label>
-    <input type="input" id="fieldGenerates" min="0" max="1000">
+    <input type="number" id="fieldGenerates" min="0" max="1000">
   </form>
+  </div>
+  <div>
+    <h4>
+      <div id="visiblePokes">
+        <table id="visiblePokesTable">
+          <tr id="pokeHeader">
+            <th>Pokemon Number</th>
+            <th>Number Collected</th>
+          </tr>
+          <tr id="dataStart">
+            <td>data</td>
+            <td>data2</td>
+          </tr>
+        </table>
+      </div>
+    </h4>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

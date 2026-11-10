@@ -1,0 +1,33 @@
+/*
+values have many forms, px for fixed, % for % of page 
+vw for view window%, and auto/max-content,fit-content
+syntax follows this convention:
+Selector{property1:value;property2:value;etc;}
+id's are selected with #, classes with .
+element.class can be used to only select elements with a specified class
+class="class1 class2 <-syntax for multiple classes
+* is the catchall element for everything on page
+element1,element2,etc <- syntax for grouping
+*/
+#controlParams{
+    background-color: blue;
+    width: 50vw; 
+    outline: auto;
+    text-align: center;
+}
+#visiblePokes{
+    background-color: green;
+    width: 50vw;
+    height: auto;
+    text-align: center;
+    outline: auto;
+    justify-content: center;
+}
+#visiblePokesTable{
+    width: 100%;
+}
+
+#pokeHeader{
+    background-color: red;
+    outline: 2px;
+}
