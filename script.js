@@ -15,6 +15,7 @@ const buttonRolls = document.getElementById("buttonRolls"); //rolls
 const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
 const resetSession = document.getElementById("resetSessionStorage");
 var formRolls = document.getElementById("fieldGenerates");
+var rolledPokeTable = document.getElementById('placeholder');
 
 //init base/empty values
 var availableRolls = 0;
@@ -126,6 +127,7 @@ function rollPoke(){
         //run above function and post sucess/failures to log
         rarityRoll();
         createPokeTable();
+        
         //populatePokeTable();
         //todo: instead of logging, td.textContent
         //0 should be rolled number
@@ -135,6 +137,7 @@ function rollPoke(){
                 console.log(`Congrats you won a ${receivedPokes[i]}`);
             }else{console.log("Sorry try again.")};
         };
+        //populatePokeTable();
     };
 
 function roll(num1){
@@ -147,7 +150,8 @@ function roll(num1){
 }};
 
 function createPokeTable(){
-    var rolledPokeTable = document.getElementById('placeholder');
+    //remove old table first, then create new one
+    document.querySelectorAll(".pokeRow").forEach(element =>{element.remove();})
     for(let i=0;i<5;i++){
         var pokeRow = document.createElement('tr');
         pokeRow.classList.add('pokeRow');
@@ -162,7 +166,7 @@ function createPokeTable(){
 //todo: in the table
 function populatePokeTable(){
     //where pokemon from most recent roll populate the pokeTable
-    const pokeTableChildren = 0;
+    const pokeTableChildren = document.getElementsByClassName("pokeRow");
     for(const child of rolledPokeTable.children){
         console.log("test");
     }
