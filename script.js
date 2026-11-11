@@ -95,10 +95,8 @@ function updateRolls(rollVal){
 };
 
 function rollPoke(){
-        //create array of no pokemon but not undefined, then array of the odds
         var receivedPokes = [0,0,0,0,0];
         var rarityTiers = [91,20,10,5,1];
-        //set offset for each tier, 1025 total pokemon, groups of 205, then populate array with potential winners
         const tierSize = 205;
         const baseTier = () => Math.floor(Math.random()*tierSize)+1; //function baseTier(){return Math.floor(Math.random()*tierSize)+1;} 
         var rarityPoke = [
@@ -127,6 +125,11 @@ function rollPoke(){
         };
         //run above function and post sucess/failures to log
         rarityRoll();
+        createPokeTable();
+        //populatePokeTable();
+        //todo: instead of logging, td.textContent
+        //0 should be rolled number
+        //1 should should be congrats or sorry msg
         for(let i=0;i<5;i++){
             if(receivedPokes[i]!==0){
                 console.log(`Congrats you won a ${receivedPokes[i]}`);
@@ -145,22 +148,22 @@ function roll(num1){
 
 function createPokeTable(){
     var rolledPokeTable = document.getElementById('placeholder');
-    for(i=0;i<5;i++){
+    for(let i=0;i<5;i++){
         var pokeRow = document.createElement('tr');
         pokeRow.classList.add('pokeRow');
         rolledPokeTable.append(pokeRow)
-        console.log(i);
-        for( j=0;j<2;j++){
+        for(let j=0;j<2;j++){
             var pokeData = document.createElement('td');
-            pokeData.classList.add('pokeData');
-            rolledPokeTable.append(pokeData)
-            console.log(i);
+            pokeData.classList.add(`pokeData${j}`);
+            pokeRow.append(pokeData)
         };
     };
 };
-
+//todo: in the table
 function populatePokeTable(){
-
+    //where pokemon from most recent roll populate the pokeTable
+    const pokeTableChildren = 0;
+    for(const child of rolledPokeTable.children){
+        console.log("test");
+    }
 };
-
-createPokeTable();
