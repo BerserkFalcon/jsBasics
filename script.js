@@ -7,11 +7,12 @@ const NewTestament = ["Matthew","Mark","Luke","John","Acts","Romans","1 Corinthi
 function randOldBook(){let book = Math.floor(Math.random()*OldTestament.length);console.log(OldTestament[book]);};
 function randNewBook(){let book = Math.floor(Math.random()*NewTestament.length);console.log(NewTestament[book]);};
 
-//html buttons
+//html buttons and forms
 const generateRolls =document.getElementById("buttonGenerates"); //generates 1 free roll, no timegate
 const buttonRolls = document.getElementById("buttonRolls"); //rolls
 const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
 const resetSession = document.getElementById("resetSessionStorage");
+var formRolls = document.getElementById("fieldGenerates");
 
 //init base/empty values
 var availableRolls = 0;
@@ -27,6 +28,52 @@ intent is to save the "poke"(number generated)
 as the key, then it's value to 1 or name?
 */
 //pokeCollection.push(pokefromroll)
+
+
+
+//button and form events
+generateRolls.addEventListener('click',()=>{
+    updateRolls(1);
+});
+
+buttonRolls.addEventListener('click',()=>{
+    if (availableRolls>0){
+        roll(1);
+        availableRolls--;
+        rollsMessage();
+    }else(console.log("Sorry, you are out of rolls."));
+});
+
+hourlyRolls.addEventListener('click',()=>{
+    if(hourOfLastRoll != hourCheck){
+        availableRolls++;
+        hourOfLastRoll = hourCheck;
+        rollsMessage();
+    }else{console.log("Hourly roll used.")};
+});
+
+resetSession.addEventListener('click', ()=>{
+    sessionStorage.clear();
+});
+
+formRolls.addEventListener('keydown',(event)=>{
+    if (event.key==="Enter"){
+        event.preventDefault();
+        let formNum = Number(formRolls.value);
+        updateRolls(formNum);
+    };
+});
+
+//start of functions
+function rollsMessage(){
+    if (availableRolls == 1){
+        console.log("1 roll available.")
+    }
+    else if(availableRolls == 0){
+        console.log("No rolls available.");
+    }
+    else{console.log(`${availableRolls} rolls available.`)}
+};
 
 function updateRolls(rollVal){
     if(rollVal==0){
@@ -45,49 +92,6 @@ function updateRolls(rollVal){
     }
 };
 
-var formRolls = document.getElementById("fieldGenerates");
-formRolls.addEventListener('keydown',(event)=>{
-    if (event.key==="Enter"){
-        event.preventDefault();
-        let formNum = Number(formRolls.value);
-        updateRolls(formNum);
-    };
-});
-
-
-function rollsMessage(){
-    if (availableRolls == 1){
-        console.log("1 roll available.")
-    }
-    else if(availableRolls == 0){
-        console.log("No rolls available.");
-    }
-    else{console.log(`${availableRolls} rolls available.`)}
-}
-
-generateRolls.addEventListener('click',()=>{
-    updateRolls(1);
-});
-
-buttonRolls.addEventListener('click',()=>{
-    if (availableRolls>0){
-        roll(1);
-        availableRolls--;
-        rollsMessage();
-    }else(console.log("Sorry, you are out of rolls."));
-    });
-
-hourlyRolls.addEventListener('click',()=>{
-    if(hourOfLastRoll != hourCheck){
-        availableRolls++;
-        hourOfLastRoll = hourCheck;
-        rollsMessage();
-    }else{console.log("Hourly roll used.")};
-});
-
-resetSession.addEventListener('click', ()=>{
-    sessionStorage.clear();
-});
 function rollPoke(){
         //create array of no pokemon but not undefined, then array of the odds
         var receivedPokes = [0,0,0,0,0];
@@ -128,7 +132,8 @@ function rollPoke(){
         };
     };
 
- function roll(num1){for(let i=0;i<num1;i++){
+function roll(num1){
+    for(i=0;i<num1;i++){
     var numberOfRolls = num1;
     if(numberOfRolls>0){
         rollPoke();
@@ -138,21 +143,22 @@ function rollPoke(){
 
 function createPokeTable(){
     var rolledPokeTable = document.getElementById('placeholder');
-    for(let i=0;i<5;i++){
+    for(i=0;i<5;i++){
         var pokeRow = document.createElement('tr');
+        pokeRow.classList.add('pokeRow');
         rolledPokeTable.append(pokeRow)
         console.log(i);
-        for(let i=0;i<2;i++){
+        for( j=0;j<2;j++){
             var pokeData = document.createElement('td');
+            pokeData.classList.add('pokeData');
             rolledPokeTable.append(pokeData)
             console.log(i);
         };
     };
 };
-/*
-function addPokeRow(num){
-    pokeRow.classList.add('');
-    pokeData.classList.add('');
+
+function populatePokeTable(){
+
 };
-*/
+
 createPokeTable();
