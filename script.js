@@ -1,4 +1,5 @@
 //make these dictionaries of book to chapter pairs? Chapters will also have verses, can that be triple mapped?
+function bibleRolls(){
 const OldTestament = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi"];
 const NewTestament = ["Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"];
 //OldTestament verses, then New Testament verses need implementation
@@ -6,6 +7,7 @@ const NewTestament = ["Matthew","Mark","Luke","John","Acts","Romans","1 Corinthi
 28, 16, 24, 21, 28, 16, 16, 13, 6, 6, 4, 4, 5, 3, 6, 4, 3, 1, 13, 5, 5, 3, 5, 1, 1, 1, 22
 function randOldBook(){let book = Math.floor(Math.random()*OldTestament.length);console.log(OldTestament[book]);};
 function randNewBook(){let book = Math.floor(Math.random()*NewTestament.length);console.log(NewTestament[book]);};
+};
 
 //html buttons and forms
 const generateRolls =document.getElementById("buttonGenerates"); //generates 1 free roll, no timegate
