@@ -135,3 +135,24 @@ function rollPoke(){
         numberOfRolls--;
     }else{console.log("no available rolls")};
 }};
+
+function createPokeTable(){
+    var rolledPokeTable = document.getElementById('placeholder');
+    for(let i=0;i<5;i++){
+        var pokeRow = document.createElement('tr');
+        rolledPokeTable.append(pokeRow)
+        console.log(i);
+        for(let i=0;i<2;i++){
+            var pokeData = document.createElement('td');
+            rolledPokeTable.append(pokeData)
+            console.log(i);
+        };
+    };
+};
+/*
+function addPokeRow(num){
+    pokeRow.classList.add('');
+    pokeData.classList.add('');
+};
+*/
+createPokeTable();

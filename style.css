@@ -9,18 +9,33 @@ class="class1 class2 <-syntax for multiple classes
 * is the catchall element for everything on page
 element1,element2,etc <- syntax for grouping
 */
+html{
+    background-color: lightgray;
+}
+.wrapper{
+    display: grid;
+    justify-content:space-around;
+}
 #controlParams{
     background-color: blue;
-    width: 50vw; 
+    width: 25vw; 
     outline: auto;
     text-align: center;
+    margin-left: 25%;
+}
+#placeholder{
+    width: 50%;
+    outline: auto;
+    margin-left: 25%;
+    margin-top: 20px;
 }
 #visiblePokes{
     background-color: green;
     width: 50vw;
     height: auto;
     text-align: center;
-    outline: auto;
+    outline-style: solid;
+    outline-width: 2px;
     justify-content: center;
 }
 #visiblePokesTable{
@@ -29,5 +44,15 @@ element1,element2,etc <- syntax for grouping
 
 #pokeHeader{
     background-color: red;
-    outline: 2px;
+    outline-style: solid;
+
+}
+#pokeHeader th{
+    outline-width: 2px;
+    outline-style: solid;
+}
+#dataStart td{
+    outline-style: solid;
+    outline-width: 2px;
+    background-color: wheat;
 }
