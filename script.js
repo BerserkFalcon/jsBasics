@@ -137,7 +137,7 @@ function rollPoke(){
                 console.log(`Congrats you won a ${receivedPokes[i]}`);
             }else{console.log("Sorry try again.")};
         };
-        //populatePokeTable();
+        populatePokeTable();
     };
 
 function roll(num1){
@@ -154,7 +154,7 @@ function createPokeTable(){
     document.querySelectorAll(".pokeRow").forEach(element =>{element.remove();})
     for(let i=0;i<5;i++){
         var pokeRow = document.createElement('tr');
-        pokeRow.classList.add('pokeRow');
+        pokeRow.classList.add(`pokeRow`);
         rolledPokeTable.append(pokeRow)
         for(let j=0;j<2;j++){
             var pokeData = document.createElement('td');
@@ -167,7 +167,11 @@ function createPokeTable(){
 function populatePokeTable(){
     //where pokemon from most recent roll populate the pokeTable
     const pokeTableChildren = document.getElementsByClassName("pokeRow");
-    for(const child of rolledPokeTable.children){
-        console.log("test");
-    }
+    const pokeTableNumber = document.getElementsByClassName("pokeData0");
+    const pokeTableName =document.getElementsByClassName("pokeData1");
+    for(let rows of rolledPokeTable.children){
+        rows.children[0].textContent=Math.floor(Math.random()*100);
+        if (rows.children[0].textContent>75){rows.children[1].textContent=1
+        }else{rows.children[1].textContent=0};
+    };
 };
