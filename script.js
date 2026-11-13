@@ -210,11 +210,17 @@ function addCollectedPoke(){
             var visiblePokeNumber = document.createElement('td');
             var visiblePokeName = document.createElement('td');
             visiblePokesTable.append(visiblePokeRow)
-            visiblePokeRow.append(visiblePokeNumber,visiblePokeName);
-
-            
+            visiblePokeRow.append(visiblePokeNumber,visiblePokeName);    
         });
+        populateVisiblePokes();
     };
+    //takes the visiblepokestable, skips the header row, then lists
+    //the updates the first cell with the pokemon collected
 function populateVisiblePokes(){
-    
+    pokeCollection.forEach((poke,index)=>{
+        var updatedPoke = visiblePokesTable.children[index+1];
+        for(index;index<pokeCollection.length;index++){
+            updatedPoke.textContent = poke;
+        }
+    });
 };
