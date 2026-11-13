@@ -110,6 +110,9 @@ function rollPoke(){
         ];
         //set value to beat for success, then generate 2 random nums, set bool answer to indexes based on success
         //if BOTH true, that tier succeeds and is added to received array
+        for(let i=0;i<5;i++){
+            receivedPokes[i]=0;
+        }
         function rarityRoll(){
             for(let i=0;i<5;i++){
                 let currentChance = rarityTiers[i];
@@ -132,6 +135,7 @@ function rollPoke(){
         //todo: instead of logging, td.textContent
         //0 should be rolled number
         //1 should should be congrats or sorry msg
+
         for(let i=0;i<5;i++){
             if(receivedPokes[i]!==0){
                 console.log(`Congrats you won a ${receivedPokes[i]}`);
@@ -165,19 +169,18 @@ function createPokeTable(){
 };
 //todo: convert manual children calls variable name calls
 function populatePokeTable(){
-    //where pokemon from most recent roll populate the pokeTable
-    const pokeTableChildren = document.getElementsByClassName("pokeRow");
-    const pokeTableNumber = document.getElementsByClassName("pokeData0");
-    const pokeTableName =document.getElementsByClassName("pokeData1");
-    for(let rows of rolledPokeTable.children){
+    for (let rows of rolledPokeTable.children) {
+        for (let data of rows.children) {
+            data.textContent = "";
+        };
+    };
+    for (let i=0;i<5;i++){
+    //where pokemon from most recent roll populate the pokeTable    
+    let rows = rolledPokeTable.children[i];
         for (let data of rows.children){
-                console.log(data);
                 if(data.className == "pokeData0"){
-                    data.textContent = "0";
-                }else{data.textContent="1"};
-
+                    data.textContent = receivedPokes[i]
+                }else{data.textContent="name"};
             };
         };
-
-        //rarityPokes[i] needs to be iterated to fill child[0]
     };
