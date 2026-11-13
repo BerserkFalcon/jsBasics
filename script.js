@@ -18,7 +18,8 @@ var formRolls = document.getElementById("fieldGenerates");
 var rolledPokeTable = document.getElementById('placeholder');
 
 //init base/empty values
-var availableRolls = 0;
+        var receivedPokes = [0,0,0,0,0];
+var availableRolls = 10;
 var hourOfLastRoll;
 const time = new Date();
 var hourCheck = time.getHours();
@@ -96,7 +97,7 @@ function updateRolls(rollVal){
 };
 
 function rollPoke(){
-        var receivedPokes = [0,0,0,0,0];
+
         var rarityTiers = [91,20,10,5,1];
         const tierSize = 205;
         const baseTier = () => Math.floor(Math.random()*tierSize)+1; //function baseTier(){return Math.floor(Math.random()*tierSize)+1;} 
@@ -128,7 +129,6 @@ function rollPoke(){
         rarityRoll();
         createPokeTable();
         
-        //populatePokeTable();
         //todo: instead of logging, td.textContent
         //0 should be rolled number
         //1 should should be congrats or sorry msg
@@ -141,7 +141,7 @@ function rollPoke(){
     };
 
 function roll(num1){
-    for(i=0;i<num1;i++){
+    for(let i=0;i<num1;i++){
     var numberOfRolls = num1;
     if(numberOfRolls>0){
         rollPoke();
@@ -163,15 +163,21 @@ function createPokeTable(){
         };
     };
 };
-//todo: in the table
+//todo: convert manual children calls variable name calls
 function populatePokeTable(){
     //where pokemon from most recent roll populate the pokeTable
     const pokeTableChildren = document.getElementsByClassName("pokeRow");
     const pokeTableNumber = document.getElementsByClassName("pokeData0");
     const pokeTableName =document.getElementsByClassName("pokeData1");
     for(let rows of rolledPokeTable.children){
-        rows.children[0].textContent=Math.floor(Math.random()*100);
-        if (rows.children[0].textContent>75){rows.children[1].textContent=1
-        }else{rows.children[1].textContent=0};
+        for (let data of rows.children){
+                console.log(data);
+                if(data.className == "pokeData0"){
+                    data.textContent = "0";
+                }else{data.textContent="1"};
+
+            };
+        };
+
+        //rarityPokes[i] needs to be iterated to fill child[0]
     };
-};
