@@ -16,9 +16,11 @@ const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
 const resetSession = document.getElementById("resetSessionStorage");
 var formRolls = document.getElementById("fieldGenerates");
 var rolledPokeTable = document.getElementById('placeholder');
+var visiblePokesTable =document.getElementById("visiblePokesTable");
+var visiblePokesHeader = document.getElementById("pokeHeader");
 
 //init base/empty values
-        var receivedPokes = [0,0,0,0,0];
+var receivedPokes = [0,0,0,0,0];
 var availableRolls = 10;
 var hourOfLastRoll;
 const time = new Date();
@@ -96,8 +98,15 @@ function updateRolls(rollVal){
     }
 };
 
+function resetRolledPokes(){
+        for(let i=0;i<5;i++){
+            receivedPokes[i]=0;
+        }
+}
+
+
 function rollPoke(){
-        var rarityTiers = [91,20,10,5,1];
+
         const tierSize = 205;
         const baseTier = () => Math.floor(Math.random()*tierSize)+1; //function baseTier(){return Math.floor(Math.random()*tierSize)+1;} 
         var rarityPoke = [
@@ -107,13 +116,13 @@ function rollPoke(){
             baseTier() + tierSize *3,
             baseTier() + tierSize *4,
         ];
-        //reset table vals per roll
-        for(let i=0;i<5;i++){
-            receivedPokes[i]=0;
-        }
+
+        resetRolledPokes();
+
         //set value to beat for success, then generate 2 random nums, set bool answer to indexes based on success
         //if BOTH true, that tier succeeds and is added to received array
         function rarityRoll(){
+            var rarityTiers = [91,20,10,5,1];
             for(let i=0;i<5;i++){
                 let currentChance = rarityTiers[i];
                 let rarityCheck = Math.floor(Math.random()*100);
@@ -141,6 +150,10 @@ function rollPoke(){
             }else{console.log("Sorry try again.")};
         };
         populatePokeTable();
+        //... is the spread operator, adds each value, rather than returning entire array
+        pokeCollection.push(...receivedPokes.filter(num => num!==0));
+        console.log(pokeCollection)
+        addCollectedPoke();
     };
 
 function roll(num1){
@@ -186,3 +199,22 @@ function populatePokeTable(){
             };
         };
     };
+
+function clearVisiblePokesTable(){
+    visiblePokesTable.replaceChildren(visiblePokesHeader);
+};
+function addCollectedPoke(){
+    clearVisiblePokesTable();
+        pokeCollection.forEach((poke,index)=>{
+            var visiblePokeRow = document.createElement('tr');
+            var visiblePokeNumber = document.createElement('td');
+            var visiblePokeName = document.createElement('td');
+            visiblePokesTable.append(visiblePokeRow)
+            visiblePokeRow.append(visiblePokeNumber,visiblePokeName);
+
+            
+        });
+    };
+function populateVisiblePokes(){
+    
+};

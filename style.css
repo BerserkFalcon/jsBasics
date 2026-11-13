@@ -40,16 +40,18 @@ html{
 }
 #visiblePokesTable{
     width: 100%;
+    background-color: green;
 }
 
-#pokeHeader{
+#pokeHeader th{
     background-color: red;
     outline-style: solid;
-
-}
-#pokeHeader th{
     outline-width: 2px;
-    outline-style: solid;
+}
+
+#visiblePokesTable tr{
+    height: 5px;
+    background-color: blue;
 }
 #dataStart td{
     outline-style: solid;
@@ -65,4 +67,12 @@ html{
     width: 25vw;
     background-color: green;
     height: 2px;
+}
+
+#success{
+    background-color: azure;
+}
+
+#failure{
+    background-color: red;
 }
