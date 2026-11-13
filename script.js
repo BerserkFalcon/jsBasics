@@ -21,7 +21,7 @@ var visiblePokesHeader = document.getElementById("pokeHeader");
 
 //init base/empty values
 var receivedPokes = [0,0,0,0,0];
-var availableRolls = 10;
+var availableRolls = 50;
 var hourOfLastRoll;
 const time = new Date();
 var hourCheck = time.getHours();
@@ -59,7 +59,8 @@ hourlyRolls.addEventListener('click',()=>{
 });
 
 resetSession.addEventListener('click', ()=>{
-    sessionStorage.clear();
+    pokeCollection.length=0;
+    clearVisiblePokesTable();
 });
 
 formRolls.addEventListener('keydown',(event)=>{
