@@ -97,7 +97,6 @@ function updateRolls(rollVal){
 };
 
 function rollPoke(){
-
         var rarityTiers = [91,20,10,5,1];
         const tierSize = 205;
         const baseTier = () => Math.floor(Math.random()*tierSize)+1; //function baseTier(){return Math.floor(Math.random()*tierSize)+1;} 
@@ -108,11 +107,12 @@ function rollPoke(){
             baseTier() + tierSize *3,
             baseTier() + tierSize *4,
         ];
-        //set value to beat for success, then generate 2 random nums, set bool answer to indexes based on success
-        //if BOTH true, that tier succeeds and is added to received array
+        //reset table vals per roll
         for(let i=0;i<5;i++){
             receivedPokes[i]=0;
         }
+        //set value to beat for success, then generate 2 random nums, set bool answer to indexes based on success
+        //if BOTH true, that tier succeeds and is added to received array
         function rarityRoll(){
             for(let i=0;i<5;i++){
                 let currentChance = rarityTiers[i];
@@ -128,7 +128,6 @@ function rollPoke(){
                 };
             };
         };
-        //run above function and post sucess/failures to log
         rarityRoll();
         createPokeTable();
         
@@ -175,12 +174,15 @@ function populatePokeTable(){
         };
     };
     for (let i=0;i<5;i++){
-    //where pokemon from most recent roll populate the pokeTable    
+    //where pokemon from most recent roll populate the pokeTable  
+    //\u2611 is check-mark, 2612 is x 
     let rows = rolledPokeTable.children[i];
         for (let data of rows.children){
                 if(data.className == "pokeData0"){
                     data.textContent = receivedPokes[i]
-                }else{data.textContent="name"};
+                }else if(data.className=="pokeData1" && receivedPokes[i]!=0){
+                    data.textContent ="\u2611"
+                }else (data.textContent="\u2612");
             };
         };
     };
