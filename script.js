@@ -13,13 +13,15 @@ function randNewBook(){let book = Math.floor(Math.random()*NewTestament.length);
 const generateRolls =document.getElementById("buttonGenerates"); //generates 1 free roll, no timegate
 const buttonRolls = document.getElementById("buttonRolls"); //rolls
 const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
-const resetSession = document.getElementById("resetSessionStorage");
-var formRolls = document.getElementById("fieldGenerates");
+const resetSession = document.getElementById("resetSessionStorage");//clears collected pokemon
+const formRolls = document.getElementById("fieldGenerates");//adds desired number of rolls
+
+//document pointers
 var rolledPokeTable = document.getElementById('placeholder');
 var visiblePokesTable =document.getElementById("visiblePokesTable");
 var visiblePokesHeader = document.getElementById("pokeHeader");
 
-//init base/empty values
+//init base values
 var receivedPokes = [0,0,0,0,0];
 var availableRolls = 50;
 var hourOfLastRoll;
@@ -62,7 +64,7 @@ resetSession.addEventListener('click', ()=>{
     pokeCollection.length=0;
     clearVisiblePokesTable();
 });
-
+//TODO:Prevent negative number/general input sanitization
 formRolls.addEventListener('keydown',(event)=>{
     if (event.key==="Enter"){
         event.preventDefault();
@@ -103,13 +105,13 @@ function resetRolledPokes(){
         for(let i=0;i<5;i++){
             receivedPokes[i]=0;
         }
-}
+};
 
-
+//TODO:Pull rarityRoll function out
 function rollPoke(){
-
+        //sets tier breakpoints, then creates spans based on tier
         const tierSize = 205;
-        const baseTier = () => Math.floor(Math.random()*tierSize)+1; //function baseTier(){return Math.floor(Math.random()*tierSize)+1;} 
+        const baseTier = () => Math.floor(Math.random()*tierSize)+1;
         var rarityPoke = [
             baseTier(),
             baseTier() + tierSize,
@@ -117,9 +119,7 @@ function rollPoke(){
             baseTier() + tierSize *3,
             baseTier() + tierSize *4,
         ];
-
         resetRolledPokes();
-
         //set value to beat for success, then generate 2 random nums, set bool answer to indexes based on success
         //if BOTH true, that tier succeeds and is added to received array
         function rarityRoll(){
@@ -151,11 +151,11 @@ function rollPoke(){
             }else{console.log("Sorry try again.")};
         };
         populatePokeTable();
-        //... is the spread operator, adds each value, rather than returning entire array
+        //... is the spread operator, uses each value, rather than returning entire array
         pokeCollection.push(...receivedPokes.filter(num => num!==0));
         console.log(pokeCollection)
         addCollectedPoke();
-    };
+};
 
 function roll(num1){
     for(let i=0;i<num1;i++){
@@ -180,16 +180,11 @@ function createPokeTable(){
         };
     };
 };
-//todo: convert manual children calls variable name calls
+
 function populatePokeTable(){
-    for (let rows of rolledPokeTable.children) {
-        for (let data of rows.children) {
-            data.textContent = "";
-        };
-    };
+    //where pokemon from most recent roll populate the rolled table by tier
+    // \u2611 is check-mark(success), 2612 is x (failure)
     for (let i=0;i<5;i++){
-    //where pokemon from most recent roll populate the pokeTable  
-    //\u2611 is check-mark, 2612 is x 
     let rows = rolledPokeTable.children[i];
         for (let data of rows.children){
                 if(data.className == "pokeData0"){
@@ -199,13 +194,16 @@ function populatePokeTable(){
                 }else (data.textContent="\u2612");
             };
         };
-    };
+};
 
 function clearVisiblePokesTable(){
+    //clears table keeping header row
     visiblePokesTable.replaceChildren(visiblePokesHeader);
 };
+
 function addCollectedPoke(){
     clearVisiblePokesTable();
+    //for every poke in the collection, make a new row, with 2 cells, first being number, second being name
         pokeCollection.forEach((poke,index)=>{
             var visiblePokeRow = document.createElement('tr');
             var visiblePokeNumber = document.createElement('td');
@@ -213,15 +211,16 @@ function addCollectedPoke(){
             visiblePokesTable.append(visiblePokeRow)
             visiblePokeRow.append(visiblePokeNumber,visiblePokeName);    
         });
-        populateVisiblePokes();
-    };
+    populateVisiblePokes();
+};
+
+function populateVisiblePokes(){
     //takes the visiblepokestable, skips the header row, then lists
     //the updates the first cell with the pokemon collected
-function populateVisiblePokes(){
     pokeCollection.forEach((poke,index)=>{
         var updatedPoke = visiblePokesTable.children[index+1];
         for(index;index<pokeCollection.length;index++){
             updatedPoke.textContent = poke;
-        }
+        };
     });
 };
