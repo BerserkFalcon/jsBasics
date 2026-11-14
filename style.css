@@ -14,19 +14,22 @@ html{
 }
 .wrapper{
     display: grid;
-    justify-content:space-around;
+    grid-template-columns: (3,1fr);
+    grid-template-rows: (2,1fr);
+    justify-content: space-around;
 }
 #controlParams{
     background-color: blue;
-    width: 25vw; 
     outline: auto;
     text-align: center;
-    margin-left: 25%;
+}
+#rolls{
+    background-color: burlywood;
+    text-align: center;
 }
 #placeholder{
     width: 50%;
     outline: auto;
-    margin-left: 25%;
     margin-top: 20px;
 }
 #visiblePokes{

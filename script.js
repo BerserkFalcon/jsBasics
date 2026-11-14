@@ -15,11 +15,14 @@ const buttonRolls = document.getElementById("buttonRolls"); //rolls
 const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
 const resetSession = document.getElementById("resetSessionStorage");//clears collected pokemon
 const formRolls = document.getElementById("fieldGenerates");//adds desired number of rolls
+const button5Rolls = document.getElementById("button5Rolls");
 
 //document pointers
 var rolledPokeTable = document.getElementById('placeholder');
 var visiblePokesTable =document.getElementById("visiblePokesTable");
 var visiblePokesHeader = document.getElementById("pokeHeader");
+var availableRollsTable = document.getElementById("rolls");
+
 
 //init base values
 var receivedPokes = [0,0,0,0,0];
@@ -29,19 +32,10 @@ const time = new Date();
 var hourCheck = time.getHours();
 var pokeCollection = [];
 
-/*
-below line WIP, push any pokes received from rolling
-into the array pokecollection
-intent is to save the "poke"(number generated)
-as the key, then it's value to 1 or name?
-*/
-//pokeCollection.push(pokefromroll)
-
-
-
 //button and form events
 generateRolls.addEventListener('click',()=>{
     updateRolls(1);
+        updateAvailableRolls();
 });
 
 buttonRolls.addEventListener('click',()=>{
@@ -64,6 +58,15 @@ resetSession.addEventListener('click', ()=>{
     pokeCollection.length=0;
     clearVisiblePokesTable();
 });
+
+button5Rolls.addEventListener('click', ()=>{
+    if(availableRolls>5){
+    roll(5);
+    availableRolls-=5;
+    rollsMessage();
+    };
+});
+
 //TODO:Prevent negative number/general input sanitization
 formRolls.addEventListener('keydown',(event)=>{
     if (event.key==="Enter"){
@@ -73,15 +76,22 @@ formRolls.addEventListener('keydown',(event)=>{
     };
 });
 
+function updateAvailableRolls(){
+    availableRollsTable.textContent = `${availableRolls} rolls available.`;
+};
+
 //start of functions
 function rollsMessage(){
     if (availableRolls == 1){
-        console.log("1 roll available.")
+        console.log("1 roll available.");
+            updateAvailableRolls();
     }
     else if(availableRolls == 0){
         console.log("No rolls available.");
+            updateAvailableRolls();
     }
-    else{console.log(`${availableRolls} rolls available.`)}
+    else{console.log(`${availableRolls} rolls available.`)
+        updateAvailableRolls();}
 };
 
 function updateRolls(rollVal){
@@ -95,7 +105,7 @@ function updateRolls(rollVal){
     else if(rollVal<1000000){
         availableRolls+=rollVal;
         console.log(`${rollVal} rolls added.`)
-        rollsMessage(); 
+        rollsMessage();
     }else {
         console.log("Failed to add rolls.")
     }
