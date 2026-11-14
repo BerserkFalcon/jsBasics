@@ -15,7 +15,7 @@ const buttonRolls = document.getElementById("buttonRolls"); //rolls
 const hourlyRolls = document.getElementById("hourlyRolls"); //timegated roll
 const resetSession = document.getElementById("resetSessionStorage");//clears collected pokemon
 const formRolls = document.getElementById("fieldGenerates");//adds desired number of rolls
-const button5Rolls = document.getElementById("button5Rolls");
+const button5Rolls = document.getElementById("button5Rolls");//rolls 5 times
 
 //document pointers
 var rolledPokeTable = document.getElementById('placeholder');
@@ -35,7 +35,7 @@ var pokeCollection = [];
 //button and form events
 generateRolls.addEventListener('click',()=>{
     updateRolls(1);
-        updateAvailableRolls();
+    rollsMessage();
 });
 
 buttonRolls.addEventListener('click',()=>{
@@ -43,7 +43,7 @@ buttonRolls.addEventListener('click',()=>{
         roll(1);
         availableRolls--;
         rollsMessage();
-    }else(console.log("Sorry, you are out of rolls."));
+    }
 });
 
 hourlyRolls.addEventListener('click',()=>{
@@ -60,7 +60,7 @@ resetSession.addEventListener('click', ()=>{
 });
 
 button5Rolls.addEventListener('click', ()=>{
-    if(availableRolls>5){
+    if(availableRolls>=5){
     roll(5);
     availableRolls-=5;
     rollsMessage();
@@ -75,23 +75,13 @@ formRolls.addEventListener('keydown',(event)=>{
         updateRolls(formNum);
     };
 });
-
+//start of functions
 function updateAvailableRolls(){
     availableRollsTable.textContent = `${availableRolls} rolls available.`;
 };
 
-//start of functions
 function rollsMessage(){
-    if (availableRolls == 1){
-        console.log("1 roll available.");
-            updateAvailableRolls();
-    }
-    else if(availableRolls == 0){
-        console.log("No rolls available.");
-            updateAvailableRolls();
-    }
-    else{console.log(`${availableRolls} rolls available.`)
-        updateAvailableRolls();}
+        updateAvailableRolls();
 };
 
 function updateRolls(rollVal){
@@ -104,7 +94,6 @@ function updateRolls(rollVal){
     }
     else if(rollVal<1000000){
         availableRolls+=rollVal;
-        console.log(`${rollVal} rolls added.`)
         rollsMessage();
     }else {
         console.log("Failed to add rolls.")
@@ -150,20 +139,9 @@ function rollPoke(){
         };
         rarityRoll();
         createPokeTable();
-        
-        //todo: instead of logging, td.textContent
-        //0 should be rolled number
-        //1 should should be congrats or sorry msg
-
-        for(let i=0;i<5;i++){
-            if(receivedPokes[i]!==0){
-                console.log(`Congrats you won a ${receivedPokes[i]}`);
-            }else{console.log("Sorry try again.")};
-        };
         populatePokeTable();
         //... is the spread operator, uses each value, rather than returning entire array
         pokeCollection.push(...receivedPokes.filter(num => num!==0));
-        console.log(pokeCollection)
         addCollectedPoke();
 };
 
@@ -174,7 +152,8 @@ function roll(num1){
         rollPoke();
         numberOfRolls--;
     }else{console.log("no available rolls")};
-}};
+    }
+};
 
 function createPokeTable(){
     //remove old table first, then create new one
